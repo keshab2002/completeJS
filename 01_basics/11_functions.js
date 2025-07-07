@@ -42,7 +42,24 @@ function addOne(num){
     return ++num;
 }
 
-console.log(addTwo(48)); // ERROR!
+//console.log(addTwo(48)); // ERROR!
 const addTwo = function(num){
     return ++num;
 }
+
+
+
+// Arrow Function
+
+const addNum = (num1, num2, ...nums) =>{
+    return num1 + num2;
+}
+
+console.log(addNum(2, 5)); // 7
+
+const multNum = (num1, num2) => (num1 * num2)   
+// can also be written as : (num1 , num2) => num1 * num2
+console.log(multNum(5,3)); // 15
+
+const objReturn = () => ({name:"Keshab"})
+console.log(objReturn()); // { name: 'Keshab' }
