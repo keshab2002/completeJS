@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Interval</title>
+</head>
+<style>
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    #container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80vh;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    #btn {
+        background-color: rgb(95, 94, 94);
+        height: 40px;
+        width: 350px;
+        font-size: xx-large;
+        font-weight: bold;
+        padding: 5px;
+        margin: 5px;
+        text-align: center;
+        border-radius: 5px;
+    }
+
+    #output {
+        height: 300px;
+        width: 1200px;
+        border-radius: 10px;
+        font-size: 90px;
+        overflow: hidden;
+    }
+
+    .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 34px;
+    }
+    .btn>div{
+        height: 30px;
+        width: 60px;
+        background-color: rgb(95, 94, 94);
+        color: white;
+        font-size: x-large;
+        text-align: center;
+        padding: 7px;
+        border-radius: 5px;
+    }
+</style>
+
+<body>
+    <div id="container">
+        <div id="btn">Chick Me To See Magic!</div>
+        <div id="output"></div>
+        <div class="btn">
+            <div id="start">Start</div>
+            <div id="stop">Stop</div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+const randomLines = [
+    "The only way to do great work is to love what you do.",
+    "Be yourself; everyone else is already taken, you know.",
+    "To be or not to be, that is the question we must ask.",
+    "The unexamined life is not worth living, truly.",
+    "That which does not kill us makes us stronger, always.",
+    "It is during our darkest moments that we must focus on the light.",
+    "The future belongs to those who believe in their dreams.",
+    "Strive not to be a success, but rather to be of value, truly.",
+    "The mind is everything. What you think you become, really.",
+    "An eye for an eye only ends up making the whole world blind.",
+    "The best revenge is massive success, always remember that.",
+    "Life is what happens when you're busy making other plans.",
+    "You must be the change you wish to see in the world, so be it.",
+    "Darkness cannot drive out darkness; only light can do that.",
+    "Believe you can and you're halfway there, trust your instincts.",
+    "The only true wisdom is in knowing you know nothing at all.",
+    "In three words I can sum up everything about life: it goes on.",
+    "Not all those who wander are lost, they simply explore.",
+    "The journey of a thousand miles begins with a single step.",
+    "Success is not final, failure is not fatal: it is the courage to continue.",
+    "The only impossible journey is the one you never begin, so start.",
+    "Do not go where the path may lead, go instead where there is no path.",
+    "Many of life's failures are people who did not realize how close they were.",
+    "The question isn't who is going to let me; it's who is going to stop me.",
+    "Imagination is more important than knowledge, for sure.",
+    "The only thing we have to fear is fear itself, nothing else.",
+    "Great minds discuss ideas; average minds discuss events; small minds discuss people.",
+    "The only source of knowledge is experience, learn from it daily.",
+    "Twenty years from now you will be more disappointed by the things you didn't do.",
+    "The greater danger for most of us is not that our aim is too high and we miss it, but that it is too low and we reach it."
+]
+
+const start = document.querySelector('#start');
+const end = document.querySelector('#stop');
+const output = document.querySelector('#output');
+
+start.addEventListener('click', startDisplay);
+
+end.addEventListener('click', endDisplay);
+
+let intervalId;
+
+function startDisplay(){
+    if(!intervalId){    
+        intervalId = setInterval(()=>{
+            output.textContent = randomLines[randomIdx(randomLines)];
+            output.style.color = randomColor();
+        output.style.backgroundColor = randomColor();
+        },100);
+    }
+}
+
+function randomColor(){
+    hex = "0123456789ABCDEF";
+    colorHexCode = "";
+    for(let i = 0; i< 6; i++){
+        colorHexCode +=  hex[randomIdx(hex)];
+    }
+    return `#${colorHexCode}`;
+}
+
+function randomIdx(arr){
+    return Math.floor(Math.random()*arr.length)
+}
+
+function endDisplay(){
+    clearInterval(intervalId);
+    intervalId = null;
+    output.textContent = '';
+    output.style.color = "white";
+    output.style.backgroundColor = "black";
+}
+
+</script>
+
+</html>

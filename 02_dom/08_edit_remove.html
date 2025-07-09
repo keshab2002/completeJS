@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM | Edir Remove</title>
+</head>
+<body style="background-color: black; color: white;">
+    
+    <ul>
+        <li>JavaScript</li>
+    </ul>
+
+</body>
+
+<script>
+
+    // Add new Element
+
+    // Optimized Way
+    function addLang(newLang){
+        const li = document.createElement('li');
+        const newTextNode = document.createTextNode(`${newLang}`);
+        li.appendChild(newTextNode);
+        document.querySelector('ul').appendChild(li);
+    }
+    addLang('python');
+    addLang('java');
+
+    // Not Optimized Way
+    function addOptimizedLang(newLang){
+        const li = document.createElement('li');
+        li.innerHTML = newLang;
+        document.querySelector('ul').appendChild(li);
+    }
+    addOptimizedLang('c');
+    addOptimizedLang('vhdl');
+
+
+    // Edit Existing Elemet
+
+    // Change Python to C++
+    function chageEle(){
+        const target = document.querySelector('li:nth-child(2)');
+        // console.log(target);
+        const newLang = document.createTextNode('C++');
+        const li = document.createElement('li');
+        li.appendChild(newLang);
+        target.replaceWith(li);
+    }
+    chageEle();
+
+    // Change target with newLang
+    function changeTargetWithNew(target,newLang){
+        let languages = document.querySelectorAll('li');
+        languages = Array.from(languages); 
+        languages = languages.filter( (language)  => (language.innerHTML == target));
+        languages.forEach((language)=>{
+            language.innerHTML = newLang
+        });
+    }
+    changeTargetWithNew('JavaScript', 'Ruby');
+
+
+    // Remove
+
+    // Remove nth lang
+    function removeNth(n){
+        const target = document.querySelector(`li:nth-child(${n})`);
+        target.remove();
+    }
+    removeNth(5);
+
+
+</script>
+
+</html>

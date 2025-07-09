@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bacckgroung Color Changer</title>
+    <style>
+        .container{
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn{
+            height: 80px;
+            width: 180px;
+            margin: 10px;
+            padding: 10px;
+            font-size: xx-large;
+            border-radius: 12px;
+        }
+        #green{
+            background-color: green;
+        }
+        #purple{
+            background-color: purple;
+            color: white;
+        }
+        #grey{
+            background-color: gray;
+        }
+        #black{
+            background-color: black;
+            color: white;
+        }
+        h1{
+            font-size: xx-large;
+        }
+        p{
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Background Color Changer</h1>
+        <div>
+            <button class="btn" id="green">Green</button>
+            <button class="btn" id="purple">Purple</button>
+            <button class="btn" id="grey" >Grey</button>
+            <button class="btn" id="black">Black</button>
+        </div>
+        <p>Select any color, background color will be the same</p>
+    </div>
+
+
+
+    <script>
+        const body = document.querySelector('body');
+        const btnList = document.querySelectorAll('.btn');
+        btnList.forEach( (button)=>{
+            button.addEventListener('click', (e)=>{
+                let sourceId = e.target.id;
+                body.style.backgroundColor = sourceId;
+                if(sourceId == 'black' ||sourceId == 'purple')
+                    body.style.color = 'white';
+                else
+                    body.style.color = 'black';
+            });
+        } );
+    </script>
+
+</body>
+</html>

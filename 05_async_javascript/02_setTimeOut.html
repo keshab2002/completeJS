@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetTimeOut</title>
+    <style>
+        button{
+            height: 50px;
+            width: 150px;
+            background-color: rgba(107, 104, 104, 0.638);
+            color: white;
+            font-size: large;
+        }
+    </style>
+</head>
+<body style="background-color: black; color: white;" >
+    <center>
+        <h1>Chilk on the button bellow, before 4 sec</h1>
+        <button id="clickBtn" >Click me 🥺</button>
+    </center>
+</body>
+
+<script>
+    //setTimeout(handeler_function, timeout in ms);
+    function chnageText(){
+        const h1 = document.querySelector('h1');
+        h1.textContent = "Hahaha! You failed MF! 😈";
+    }
+    const saveChange = setTimeout(chnageText, 4000);
+
+    const btn = document.querySelector('#clickBtn');
+    btn.addEventListener('click', ()=>{
+        clearTimeout(saveChange);
+        btn.textContent = "WellDone 🤗"
+    });
+</script>
+
+</html>

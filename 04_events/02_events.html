@@ -1,0 +1,84 @@
+<!-- 
+Moto of the project:
+we have an unoredered list containg n number of images and one link
+
+- make sure if we click in the link, it should not jump into specified url
+- if i click on an image it should get removed!
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+            color: white;
+        }
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            list-style-type: none;
+
+        }
+        li{
+            margin: 20px;
+        }
+        li>img{
+            width: 400px;
+            height: 200px;
+        }
+        a{
+            text-decoration: none;
+            font-size: 30px;
+            color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+    <ul class="container mx-auto p-4">
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/2166711/pexels-photo-2166711.jpeg" alt="Scenic view of a mountain range with clouds" id="mountain-clouds-view" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/1144176/pexels-photo-1144176.jpeg" alt="Close-up of a vibrant green leaf with water droplets" id="green-leaf-dew" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg" alt="Majestic snowy mountain peak against a clear sky" id="snowy-mountain-peak" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/158063/bellingrath-gardens-alabama-landscape-scenic-158063.jpeg" alt="Beautiful landscaped garden with colorful flowers and pathway" id="bellingrath-gardens" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/462162/pexels-photo-462162.jpeg" alt="Lush green forest with tall trees and sunlight filtering through" id="lush-green-forest" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/206359/pexels-photo-206359.jpeg" alt="Serene lake surrounded by autumn trees reflecting in the water" id="autumn-lake-reflection" class="rounded-lg shadow-md">
+        </li>
+        <li class="flex justify-center items-center">
+            <img src="https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg" alt="Vast desert landscape with sand dunes and clear blue sky" id="desert-sand-dunes" class="rounded-lg shadow-md">
+        </li>
+        <a href="https://www.google.com/">Google.com</a>
+    </ul>
+</body>
+
+<script>
+    document.querySelector('ul').lastElementChild.addEventListener('click', (e)=>{
+        e.preventDefault();
+        console.log('User Cliked on the link!');
+    });
+
+    document.querySelector('ul').addEventListener('click', (e)=>{
+        if(e.target.tagName === 'IMG'){        
+            const eleToDelete = e.target.parentNode;
+            console.log(eleToDelete);
+            eleToDelete.remove();
+            //eleToDelete.parentNode.removeChild(eleToDelete);
+        }
+    });
+</script>
+</html>

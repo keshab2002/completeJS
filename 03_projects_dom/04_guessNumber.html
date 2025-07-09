@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gusee The Number</title>
+    <style>
+        body {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #121212;
+            color: rgb(151, 150, 150);
+        }
+
+        form {
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            background-color: rgb(151, 150, 150);
+            color: black;
+            width: 200px;
+            height: 30px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 800;
+            padding: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: rgb(151, 150, 150);
+            width: auto;
+            height: 30px;
+            border-radius: 5px;
+            font-size: medium;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Number Guessing Game</h1>
+    <p>
+        Try and guess a random number between 1 and 100.
+        <br>
+        You have 10 attempts to guess the right number.
+    </p>
+    <form>
+        <label>Gusee The Number</label>
+        <input id="guessNum" type="text">
+        <button type="submit">Submit Guess</button>
+    </form>
+    <h2>Previous Guesses: <span id="previousGuess"></span> </h2>
+    <h2>Gusee Remaining: <span id="gueesRemaining">10</span></h2>
+    <div id="userDisplay" ></div>
+</body>
+
+<script>
+
+    let randomNumber = Math.floor(Math.random()*100+1);
+    let perviousAns = [];
+    let attemp = 1;
+    let maxAttempt = 10;
+    
+    const form = document.querySelector('form');
+    const userInput = document.querySelector('#guessNum');
+    const previousGuess = document.querySelector('#previousGuess');
+    const gueesRemaining = document.querySelector('#gueesRemaining');
+    const userDisplay = document.querySelector('#userDisplay');
+
+    let canPlay = true;
+
+    if(canPlay){
+        form.addEventListener('submit',(e)=>{
+            // to prevent sending data to backend
+            e.preventDefault();
+            let userNum = parseInt(userInput.value);
+            validate(userNum); 
+        });
+    }
+
+    function validate(userNum){
+        if(isNaN(userNum)){
+            displayMessage(`'${userNum}' is not a valid number!`);
+        } else if (userNum < 1 ){            
+            displayMessage(`Enter a number greater or equal to 1`);
+        } else if (userNum > 100) {            
+            displayMessage(`Enter a number less than equal to 100`);
+        } else {
+            perviousAns.push(userNum);
+            if(attemp++ > maxAttempt){
+                displayCurrentState(userNum);
+                displayMessage(`Game Over, Correct answer is: ${randomNumber}`);
+                endGame();
+            }
+            else{
+                cheakAns(userNum);
+            }
+        }
+    }
+
+    function cheakAns(userNum){
+        if(userNum === randomNumber){
+            displayCurrentState(userNum);
+            displayMessage("Yay! You Guseed It Right!");
+            setTimeout(() => {}, 3000);
+            endGame();
+        } 
+        else if (userNum < randomNumber){
+            displayMessage ("Your Guessed number is less than Answer");
+            displayCurrentState(userNum);
+        } 
+        else{
+            displayMessage ("Your Guessed number is greater than Answer");
+            displayCurrentState(userNum);
+        }
+    }
+
+    function displayMessage(message){
+        userDisplay.textContent = message;
+    }
+
+    function displayCurrentState(userNum){
+        userInput.value = '';
+        previousGuess.textContent += `  ${userNum}`;
+        gueesRemaining.textContent = `${maxAttempt - attemp}`;
+    }
+
+    function endGame(){
+        displayMessage('');
+        userInput.value = '';
+        userInput.setAttribute('disabled', '');
+        perviousAns = [];
+        attemp = 0;
+        previousGuess.textContent = ``;
+        gueesRemaining.textContent = `${maxAttempt - attemp}`;
+        const h2 = document.createElement('h2');
+        h2.id = "newGameStart";
+        h2.textContent = 'Start New Game';
+        userDisplay.appendChild(h2);
+        newGame();
+        canPlay = false;
+    }
+
+    function newGame(){
+        const newGame = document.querySelector("#newGameStart");
+        newGame.addEventListener('click', (e)=>{
+            canPlay = true;
+            userInput.removeAttribute('disabled');
+            randomNumber = Math.floor(Math.random()*100+1);
+            
+            newGame.remove();
+        })
+    }
+
+
+
+</script>
+ 
+</html>

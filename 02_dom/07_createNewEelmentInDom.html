@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Elements In Dom</title>
+</head>
+<body style="background-color: black; color: white;" >
+    <h1>Create New Elements In Dom</h1>
+</body>
+
+<script>
+    const div = document.createElement('div');
+    console.log(div);   // <div></div>
+    
+    div.className = "container";
+    div.id = Math.round(Math.random()*1000+1);
+    div.setAttribute('title', 'any-title');
+    console.log(div);   // <div class="container" id="991" title="any-title"></div>
+
+    div.style.backgroundColor = "#FDFFB8";
+    div.style.color = "#273F4F";
+    div.style.padding = "12px";
+    div.style.borderRadius = "10px";
+
+    const textCont = document.createTextNode('Keshab Dey!');
+    div.appendChild(textCont);
+
+    // <div class="container" id="635" title="any-title" style="background-color: rgb(253, 255, 184); color: rgb(39, 63, 79); padding: 12px; border-radius: 10px;">Keshab Dey!</div>
+
+    document.body.append(div);
+
+
+
+    function createDiv(){
+        const div = document.createElement('div');
+
+        const stringArray = 
+        [
+            "The only way to do great work is to love what you do.",
+            "Be yourself; everyone else is already taken, you know.",
+            "To be or not to be, that is the question we must ask.",
+            "The unexamined life is not worth living, truly.",
+            "That which does not kill us makes us stronger, always.",
+            "It is during our darkest moments that we must focus on the light.",
+            "The future belongs to those who believe in their dreams.",
+            "Strive not to be a success, but rather to be of value, truly.",
+            "The mind is everything. What you think you become, really.",
+            "An eye for an eye only ends up making the whole world blind.",
+            "The best revenge is massive success, always remember that.",
+            "Life is what happens when you're busy making other plans.",
+            "You must be the change you wish to see in the world, so be it.",
+            "Darkness cannot drive out darkness; only light can do that.",
+            "Believe you can and you're halfway there, trust your instincts.",
+            "The only true wisdom is in knowing you know nothing at all.",
+            "In three words I can sum up everything about life: it goes on.",
+            "Not all those who wander are lost, they simply explore.",
+            "The journey of a thousand miles begins with a single step.",
+            "Success is not final, failure is not fatal: it is the courage to continue.",
+            "The only impossible journey is the one you never begin, so start.",
+            "Do not go where the path may lead, go instead where there is no path.",
+            "Many of life's failures are people who did not realize how close they were.",
+            "The question isn't who is going to let me; it's who is going to stop me.",
+            "Imagination is more important than knowledge, for sure.",
+            "The only thing we have to fear is fear itself, nothing else.",
+            "Great minds discuss ideas; average minds discuss events; small minds discuss people.",
+            "The only source of knowledge is experience, learn from it daily.",
+            "Twenty years from now you will be more disappointed by the things you didn't do.",
+            "The greater danger for most of us is not that our aim is too high and we miss it, but that it is too low and we reach it."
+        
+        ];
+        
+        const arrIdx = Math.floor(Math.random()*stringArray.length);
+        const divContent = document.createTextNode(stringArray[arrIdx]);
+        div.appendChild(divContent);
+
+        div.style.display = "inline-block";
+        div.style.width = "250px";
+        div.style.height = "70px";
+        div.style.padding = "10px";
+        div.style.margin = "20px";
+        div.style.borderRadius = "10px";
+        div.style.overflow = "hidden";
+        div.style.backgroundColor = "#722323";
+
+        document.body.appendChild(div);
+    }
+
+    for (let i = 0; i < 50; i++) {
+        createDiv();
+    }
+
+</script>
+</html>
