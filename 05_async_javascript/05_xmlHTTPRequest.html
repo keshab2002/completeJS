@@ -1,180 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XML HTTP REQUEST</title>
-    <style>
-        body{
-            background-color: black;
-            color: white;
-        }
-        .container{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        .card{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            width: 300px;
-            background-color: rgb(86, 79, 79);
-            border-radius: 10px;
-        }
-        .photo>img{
-            height: 200px;
-            width: 250px;
-            border-radius: 7px;
-        }
-    </style>
 </head>
-
 <body>
-    <center>
-    <table border="1" >
-        <thead>
-            <tr>
-                <th>Value</th>
-                <th>State</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><code>0</code></td>
-                <td><code>UNSENT</code></td>
-                <td>Client has been created. <code>open()</code> not called yet.</td>
-            </tr>
-            <tr>
-                <td><code>1</code></td>
-                <td><code>OPENED</code></td>
-                <td><code>open()</code> has been called.</td>
-            </tr>
-            <tr>
-                <td><code>2</code></td>
-                <td><code>HEADERS_RECEIVED</code></td>
-                <td><code>send()</code> has been called, and headers and status are available.</td>
-            </tr>
-            <tr>
-                <td><code>3</code></td>
-                <td><code>LOADING</code></td>
-                <td>Downloading; <code>responseText</code> holds partial data.</td>
-            </tr>
-            <tr>
-                <td><code>4</code></td>
-                <td><code>DONE</code></td>
-                <td>The operation is complete.</td>
-            </tr>
-        </tbody>
-    </table>
-    </center>
-    <br><br><br>
-    <center>
-        <button style="padding: 10px; margin-bottom: 30px;">Click me</button>
-    </center>
-    <div class="container">
-        <!-- <div class="card">
-            <div class="photo">
-                <img src="async_js_diagram.png">
-            </div>
-            <div class="profile">
-                <p>Name: Mr. Keshab Dey</p>
-                <p>Address: 123 GT Road Serampore</p>
-                <p>Email: keshab@google.com</p>
-            </div>
-        </div>    -->
-    </div>
+    
 </body>
-
 <script>
+    // To access an api
     const requesturl = 'https://randomuser.me/api/';
 
-    document.querySelector('button').addEventListener('click', addUser);
+    // Step 1: Instantiate xml http request object
+    const xhr = new XMLHttpRequest();
 
-    function addUser(){     
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', requesturl);
-        xhr.send();
-        xhr.onreadystatechange = function(){
-            console.log(xhr.readyState);
-            if(xhr.readyState === 4){
-                const data = JSON.parse(this.responseText);
-                console.log(data['results'][0]['name']['first'])
-                const username = `${data['results'][0]['name']['title']}. ${data['results'][0]['name']['first']} ${data['results'][0]['name']['last']} `;
-                const address = ` ${data['results'][0]['location']['street']['number']}, ${data['results'][0]['location']['street']['name']}; ${data['results'][0]['location']['city']}; ${data['results'][0]['location']['state']}; ${data['results'][0]['location']['country']};`;
-                const email = `${data['results'][0]['email']}`;
-                const photoLink = data['results'][0]['picture']['large'];
-                createUserCart(username, address, email, photoLink);
-            }
+    // Step 2: Open:
+    xhr.open( 'GET',  requesturl)
+
+    // step 3: Send
+    xhr.send()
+
+    // Step 4: Keep track of the states of api request
+    xhr.onreadystatechange  = function (){
+        console.log(this.readyState);
+        /*
+        Output:
+        2 (send() has been called, and headers and status are available.)
+        3 (Downloading; responseText holds partial data)
+        4 (The operation is complete)
+        */
+        if(this.readyState === 4){
+            console.log(this.responseText);
+            /*
+            {"results":[{"gender":"male","name":{"title":"Mr","first":"Jim","last":"Hunt"},"location":{"street":{"number":7352,"name":"Mill Lane"},"city":"Coventry","state":"County Antrim","country":"United Kingdom","postcode":"F9B 1DY","coordinates":{"latitude":"-4.8010","longitude":"-55.3719"},"timezone":{"offset":"-8:00","description":"Pacific Time (US & Canada)"}},"email":"jim.hunt@example.com","login":{"uuid":"772b742a-a141-4aa8-8db3-17a2697a8b7b","username":"sadduck167","password":"spike","salt":"PfsfPNFF","md5":"d77db6f41b08971e581ab6b4e66a6165","sha1":"65e6769ecdac977f40880905f7714c4d94de4a94","sha256":"f52997aae0e9342734e714b36b3fed188db68856f53a488c011f36c9bc451a77"},"dob":{"date":"1971-09-03T14:01:14.597Z","age":53},"registered":{"date":"2015-08-08T17:13:04.462Z","age":9},"phone":"016977 3356","cell":"07417 157696","id":{"name":"NINO","value":"RP 53 26 41 H"},"picture":{"large":"https://randomuser.me/api/portraits/men/15.jpg","medium":"https://randomuser.me/api/portraits/med/men/15.jpg","thumbnail":"https://randomuser.me/api/portraits/thumb/men/15.jpg"},"nat":"GB"}],"info":{"seed":"5b1299d1d9112e18","results":1,"page":1,"version":"1.4"}}
+            */
+           // ResponceText is in form of String, to convert it to JSON
+           const data = JSON.parse(this.responseText)
+           console.log(data);
+            /*
+            {results: Array(1), info: {…}}
+            */
+           // access the required data:
+           let imageUrl = data['results'][0]['picture']['large'] 
+           console.log(imageUrl);
+           /*
+            https://randomuser.me/api/portraits/women/15.jpg
+           */
+            const img = document.createElement('img');
+            img.setAttribute('src', imageUrl);
+            document.body.appendChild(img);
         }
-
     }
-
-    function createUserCart(username, address, email, photoLink){
-        const div = document.createElement('div');
-        div.classList = 'card';
-
-        // div.style.width = '100%';
-        div.style.display = 'flex';
-        div.style.justifyContent = 'center';
-        div.style.alignItems = 'center';
-        div.style.flexWrap = 'wrap';
-        div.style.gap= '30px';
-
-
-        const imageDiv = document.createElement('div');
-        imageDiv.classList = 'photo';
-        const img = document.createElement('img');
-        img.setAttribute('src', photoLink);
-
-        img.style.height = '200px';
-        img.style.width = '250px';
-        img.style.borderRadius= '7px';
-  
-
-        imageDiv.appendChild(img);
-
-
-        div.appendChild(imageDiv);
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.classList = 'profile';
-        
-        const p1 = document.createElement('p');
-        p1.innerText = `Name: ${username}`
-        contentDiv.appendChild(p1);
-        
-        const p2 = document.createElement('p');
-        p2.innerText = `Address: ${address}`
-        contentDiv.appendChild(p2);
-        
-        const p3 = document.createElement('p');
-        p3.innerText = `Email: ${email}`
-        contentDiv.appendChild(p3);
-
-
-        
-        div.appendChild(contentDiv);
-
-
-
-        const containerDiv = document.querySelector('.container'); 
-        containerDiv.appendChild(div);
-    }
-
-
 
 </script>
-
-
-
 </html>
-
-
-
